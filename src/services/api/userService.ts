@@ -1,4 +1,5 @@
-import { api } from '../index.ts'
+import api from '../index.ts'
+import { removeToken } from '../helpers/tokenHelper.ts'
 
 interface IUserData {
   email: string
@@ -14,8 +15,12 @@ export async function Login(loginData: IUserData) {
     const response = (await api.post('/login', loginData)).data
     return response
   } catch (e: any) {
-    return e.response.data.message
+    return e.response
   }
+}
+
+export function logout() {
+  removeToken()
 }
 
 export async function registerNewUser(newUserData: INewUser) {
@@ -23,6 +28,15 @@ export async function registerNewUser(newUserData: INewUser) {
     const response = (await api.post('/register', newUserData)).data
     return response
   } catch (e: any) {
-    return e.response.data.message
+    return e.response
+  }
+}
+
+export async function auth() {
+  try {
+    const response = (await api.get('/me')).data
+    return response
+  } catch (e: any) {
+    return e.response
   }
 }

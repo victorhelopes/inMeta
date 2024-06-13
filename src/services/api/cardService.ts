@@ -1,4 +1,4 @@
-import { api } from '../index.ts'
+import api from '../index.ts'
 
 interface ICard {
   id: string
@@ -39,6 +39,6 @@ export async function GetTrades(queryParams: IGetTradesQuery) {
     const response: IGetTradesResponse = (await api.get('/trades', { params: queryParams })).data
     return response
   } catch (e: any) {
-    return e.response.data.message
+    return e.response
   }
 }

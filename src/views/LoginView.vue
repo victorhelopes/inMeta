@@ -37,6 +37,7 @@ import ErrorMessage from '../components/ErrorMessageComponent.vue'
 import TextField from '../components/TextField.vue'
 
 import { Login } from '../services/api/userService.ts'
+import { setToken } from '../services/helpers/tokenHelper.ts'
 
 export default {
   components: {
@@ -59,7 +60,7 @@ export default {
           this.loginError = true
           return
         }
-        localStorage.setItem('token', response.token)
+        setToken(response.token)
         this.$router.push('/')
       }
     }
@@ -72,6 +73,7 @@ export default {
   width: 100%;
   box-sizing: border-box;
   max-width: 20rem;
+  margin: auto;
 }
 h1 {
   margin-top: 0;

@@ -86,3 +86,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.Card {
+  margin: auto;
+}
+</style>

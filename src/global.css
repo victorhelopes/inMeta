@@ -7,6 +7,7 @@
   --green-darker-color: #2c552d;
   --cancel-color: #f80000;
   --gray-color: #b6b6b6;
+  --gray-background-color: #b6b6b69d;
   --gray-dark-color: #696969;
 
   .Card {
@@ -39,11 +40,12 @@ body,
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: auto;
+  overflow: none;
 }
 
 .Container {
   display: flex;
   flex-direction: column;
+  height: 100%;
   padding: 0 10rem;
 }

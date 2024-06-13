@@ -1,5 +1,22 @@
 import axios from 'axios'
 
-export const api = axios.create({
+import { getToken } from './helpers/tokenHelper.ts'
+
+const api = axios.create({
   baseURL: 'https://cards-marketplace-api.onrender.com'
 })
+
+api.interceptors.request.use(
+  (config) => {
+    const token = getToken()
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+export default api
