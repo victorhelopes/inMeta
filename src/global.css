@@ -1,7 +1,33 @@
 :root {
-    font-family: Arial, Helvetica, sans-serif;
-  
-    --orange-color: #FF7235;
-    --green-color: #468847;
-    --cancel-color: rgb(255, 83, 83);
-  }
+  font-family: Arial, Helvetica, sans-serif;
+
+  --orange-color: #ff7235;
+  --orange-darker-color: #ca511d;
+  --green-color: #468847;
+  --green-darker-color: #2c552d;
+  --cancel-color: #f80000;
+  --gray-color: #b6b6b6;
+  --gray-dark-color: #696969;
+}
+
+head {
+  height: 0;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 10rem;
+}
