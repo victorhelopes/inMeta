@@ -8,6 +8,25 @@
   --cancel-color: #f80000;
   --gray-color: #b6b6b6;
   --gray-dark-color: #696969;
+
+  .Card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 0.3rem var(--gray-color);
+
+    .CardFooter {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .error {
+        color: var(--cancel-color);
+        margin-bottom: 0.5rem;
+        font-size: small;
+        font-weight: normal;
+      }
+    }
+  }
 }
 
 head {

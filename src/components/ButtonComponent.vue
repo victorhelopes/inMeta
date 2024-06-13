@@ -31,6 +31,6 @@ button {
 }
 
 button:hover {
-  background-color: var(--gray-dark-color);
+  background-color: var(--green-darker-color);
 }
 </style>

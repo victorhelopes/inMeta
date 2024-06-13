@@ -1,18 +1,22 @@
 <template>
   <div class="textField">
-    <p>{{ label }}</p>
+    <label>{{ label }}</label>
     <input
       :type="inputType"
       :placeholder="placeholder"
       :value="value"
       @input="(event) => onChange(event)"
     />
-    <p v-if="!!showError" class="error">{{ errorMessage }}</p>
+    <ErrorMessage v-if="!!showError" :errorMessage="errorMessage" />
   </div>
 </template>
 
 <script lang="ts">
+import ErrorMessage from './ErrorMessageComponent.vue'
 export default {
+  components: {
+    ErrorMessage
+  },
   props: {
     label: String,
     placeholder: String,
@@ -39,8 +43,7 @@ export default {
   margin-bottom: 1rem;
 }
 
-p {
-  margin: 0 0 0.5rem 0;
+label {
   font-weight: 600;
 }
 input {
