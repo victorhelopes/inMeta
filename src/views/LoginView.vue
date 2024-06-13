@@ -36,7 +36,7 @@ import ButtonComponent from '../components/ButtonComponent.vue'
 import ErrorMessage from '../components/ErrorMessageComponent.vue'
 import TextField from '../components/TextField.vue'
 
-import { Login } from '../services/login.ts'
+import { Login } from '../services/api/userService.ts'
 
 export default {
   components: {

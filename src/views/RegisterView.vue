@@ -51,7 +51,7 @@ import ButtonComponent from '../components/ButtonComponent.vue'
 import TextField from '../components/TextField.vue'
 import ErrorMessage from '../components/ErrorMessageComponent.vue'
 
-import { registerNewUser } from '../services/registerNewUser.ts'
+import { registerNewUser } from '../services/api/userService.ts'
 
 import ValidateEmail from '../utils/ValidateEmail.ts'
 
