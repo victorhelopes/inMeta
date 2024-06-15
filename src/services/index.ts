@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { getToken } from './helpers/tokenHelper.ts'
+import { getToken } from './helpers/tokenHelper'
 
 const api = axios.create({
   baseURL: 'https://cards-marketplace-api.onrender.com'

@@ -19,7 +19,8 @@
 </template>
 
 <script lang="ts">
-import { GetTrades } from '../services/api/cardService.ts'
+import { GetTrades } from '../services/api/cardService'
+
 import ButtonComponent from '../components/ButtonComponent.vue'
 import HeaderComponent from '../components/HeaderComponent.vue'
 import CardList from '../components/CardList.vue'

@@ -4,11 +4,11 @@
     <TextField
       label="Email"
       placeholder="Email"
-      :value="this.loginInfos.email"
+      :value="loginInfos.email"
       inputType="email"
       :onChange="
         (value) => {
-          this.loginInfos.email = value.target.value
+          loginInfos.email = value.target.value
         }
       "
     />
@@ -16,16 +16,16 @@
       label="Senha"
       placeholder="Senha"
       inputType="password"
-      :value="this.loginInfos.password"
+      :value="loginInfos.password"
       :onChange="
         (value) => {
-          this.loginInfos.password = value.target.value
+          loginInfos.password = value.target.value
         }
       "
     />
     <div class="CardFooter">
       <ErrorMessage v-if="loginError" errorMessage="Email ou senha estão incorretos" />
-      <ButtonComponent @onButtonClick="this.handleLogin" label="Login" />
+      <ButtonComponent @onButtonClick="handleLogin" label="Login" />
       <router-link to="/Register">Cadastrar novo usuario</router-link>
     </div>
   </div>
@@ -36,8 +36,8 @@ import ButtonComponent from '../components/ButtonComponent.vue'
 import ErrorMessage from '../components/ErrorMessageComponent.vue'
 import TextField from '../components/TextField.vue'
 
-import { Login } from '../services/api/userService.ts'
-import { setToken } from '../services/helpers/tokenHelper.ts'
+import { Login } from '../services/api/userService'
+import { setToken } from '../services/helpers/tokenHelper'
 
 export default {
   components: {

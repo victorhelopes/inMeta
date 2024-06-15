@@ -1,4 +1,4 @@
-import api from '../index.ts'
+import api from '../index'
 
 interface ICard {
   id: string
@@ -37,6 +37,15 @@ export interface IGetTradesResponse extends IGetTradesQuery {
 export async function GetTrades(queryParams: IGetTradesQuery) {
   try {
     const response: IGetTradesResponse = (await api.get('/trades', { params: queryParams })).data
+    return response
+  } catch (e: any) {
+    return e.response
+  }
+}
+
+export async function getAllCards(queryParams: IGetTradesQuery) {
+  try {
+    const response = (await api.get('/cards', { params: queryParams })).data
     return response
   } catch (e: any) {
     return e.response

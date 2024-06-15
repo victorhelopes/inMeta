@@ -2,7 +2,7 @@
   <p class="error">{{ errorMessage }}</p>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   props: {
     errorMessage: String

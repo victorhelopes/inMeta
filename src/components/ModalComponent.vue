@@ -11,9 +11,14 @@
 </template>
 
 <script lang="ts">
+import CardList from './CardList.vue'
 export default {
+  components: {
+    CardList
+  },
+
   props: {
-    cards: [Object]
+    cards: { type: [Object], required: true }
   },
 
   methods: {

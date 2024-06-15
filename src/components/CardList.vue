@@ -1,10 +1,12 @@
 <template>
-  <div v-for="cardInfo in cards" :key="cardInfo">
-    <img
-      v-if="onlyOffers && cardInfo.type === 'OFFERING'"
-      :src="cardInfo.card.imageUrl"
-      alt="card photo not informed"
-    />
+  <div class="ImgList">
+    <div v-for="cardInfo in cards" :key="cardInfo">
+      <img
+        v-if="onlyOffers ? onlyOffers && cardInfo.type === 'OFFERING' : true"
+        :src="cardInfo.card?.imageUrl ? cardInfo.card.imageUrl : cardInfo.imageUrl"
+        alt="card photo not informed"
+      />
+    </div>
   </div>
 </template>
 
@@ -16,3 +18,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.ImgList {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  overflow: auto;
+  max-height: 40rem;
+}
+</style>
