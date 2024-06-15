@@ -5,6 +5,8 @@
       <hr />
       <p v-on:click="openModalAddCard">Adicionar Cartas</p>
       <hr />
+      <p v-on:click="openModalAddTradeCard">Adicionar Troca</p>
+      <hr />
       <p v-on:click="logout">Logout</p>
     </div>
     <div v-else>
@@ -21,6 +23,16 @@
     "
     :cards="cards"
   />
+  <ModalAddTradeCard
+    v-if="modaAddTradeCardIsOpen"
+    @closeModal="
+      () => {
+        closeModal()
+        getUserInfos()
+      }
+    "
+    :myCards="cards"
+  />
   <ModalComponent v-if="modalIsOpen" @closeModal="closeModal" :cards="cards" />
 </template>
 
@@ -30,18 +42,21 @@ import { logout } from '../services/api/userService'
 
 import ModalComponent from './ModalComponent.vue'
 import ModalAddCard from './ModalAddCardComponent.vue'
+import ModalAddTradeCard from './ModalAddTradeCard.vue'
 
 export default {
   components: {
     ModalComponent,
-    ModalAddCard
+    ModalAddCard,
+    ModalAddTradeCard
   },
 
   data: () => ({
     cards: [],
     userLogged: true,
     modalIsOpen: false,
-    modaAddCardIsOpen: false
+    modaAddCardIsOpen: false,
+    modaAddTradeCardIsOpen: false
   }),
 
   methods: {
@@ -57,10 +72,15 @@ export default {
     closeModal() {
       this.modalIsOpen = false
       this.modaAddCardIsOpen = false
+      this.modaAddTradeCardIsOpen = false
     },
 
     openModalAddCard() {
       this.modaAddCardIsOpen = true
+    },
+
+    openModalAddTradeCard() {
+      this.modaAddTradeCardIsOpen = true
     },
 
     openModal() {

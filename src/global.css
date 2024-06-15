@@ -28,6 +28,15 @@
       }
     }
   }
+
+  .errorMessage {
+    color: var(--cancel-color);
+    margin-top: 0.5rem;
+    font-size: small;
+    font-weight: normal;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 head {

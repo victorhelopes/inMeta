@@ -10,6 +10,11 @@ interface INewUser extends IUserData {
   name: string
 }
 
+interface ITrade {
+  cardId: String
+  type: 'OFFERING' | 'RECEIVING'
+}
+
 export async function Login(loginData: IUserData) {
   try {
     const response = (await api.post('/login', loginData)).data
@@ -44,6 +49,35 @@ export async function addCard(cardIds: String[]) {
 export async function auth() {
   try {
     const response = (await api.get('/me')).data
+    return response
+  } catch (e: any) {
+    return e.response
+  }
+}
+
+export async function addTrade({
+  offering,
+  receiving
+}: {
+  offering: String[]
+  receiving: String[]
+}) {
+  const cards: ITrade[] = []
+  offering.forEach((card) => {
+    cards.push({
+      cardId: card,
+      type: 'OFFERING'
+    })
+  })
+  receiving.forEach((card) => {
+    cards.push({
+      cardId: card,
+      type: 'RECEIVING'
+    })
+  })
+
+  try {
+    const response = (await api.post('/trades', { cards: cards })).data
     return response
   } catch (e: any) {
     return e.response

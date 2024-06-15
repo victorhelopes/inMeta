@@ -2,31 +2,52 @@
   <div class="Background" />
   <div class="Modal">
     <div class="ModalHeader">
-      <h3>Adcione cartas ao seu baralho</h3>
+      <h3>Adcione cartas para troca do seu baralho</h3>
       <p class="Close" v-on:click="closeModal">X</p>
     </div>
     <div class="ModalBody">
       <CardSelect
-        :cards="list"
+        v-if="step === 1"
+        :cards="myCards"
         @updateData="
           (value) => {
-            cardsSelecteds = value
+            offering = value
           }
         "
       />
-      <div v-if="more" class="ShowMore">
+      <CardSelect
+        v-if="step === 2"
+        :cards="list"
+        @updateData="
+          (value) => {
+            receiving = value
+          }
+        "
+      />
+      <div v-if="more && step === 2" class="ShowMore">
         <ButtonComponent @onButtonClick="getMoreCards" label="Ver mais" />
       </div>
     </div>
+    <p v-if="showError" class="errorMessage">
+      Uma das cartas estão repetidas na troca! Oferecendo e recebendo cartas iguais!
+    </p>
     <div class="ModalFooter">
-      <ButtonComponent @onButtonClick="addCards" label="Confirmar" />
+      <p class="Close" v-if="step === 2" v-on:click="step = 1">Voltar</p>
+      <ButtonComponent
+        @onButtonClick="
+          () => {
+            step === 1 ? (step = 2) : createTrade()
+          }
+        "
+        label="Confirmar"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { getAllCards } from '../services/api/cardService'
-import { addCard } from '../services/api/userService'
+import { addTrade } from '../services/api/userService'
 
 import CardSelect from './CardSelect.vue'
 import ButtonComponent from './ButtonComponent.vue'
@@ -38,15 +59,18 @@ export default {
   },
 
   props: {
-    cards: { type: [Object], required: true }
+    myCards: { type: [Object], required: true }
   },
 
   data: () => ({
     list: [],
-    cardsSelecteds: [],
+    offering: [],
+    receiving: [],
     rpp: 10,
     page: 1,
-    more: false
+    more: false,
+    step: 1,
+    showError: false
   }),
 
   async mounted() {
@@ -73,9 +97,12 @@ export default {
       this.list = this.list.concat(response.list)
     },
 
-    async addCards() {
-      await addCard(this.cardsSelecteds)
-      this.closeModal()
+    async createTrade() {
+      const response = await addTrade({ receiving: this.receiving, offering: this.offering })
+      if (response.tradeId) {
+        this.closeModal()
+      }
+      this.showError = true
     }
   }
 }
@@ -123,6 +150,10 @@ export default {
 
 .Close:hover {
   font-weight: bold;
+}
+
+button {
+  margin-left: 1rem;
 }
 
 .Background {
