@@ -4,22 +4,48 @@
   </div>
   <div class="body">
     <h1>Cartas que estão sendo ofertadas</h1>
+    <ButtonComponent
+      :on-button-click="
+        () => {
+          showMyOnly = !showMyOnly
+        }
+      "
+      label="Mostrar apenas minhas trocas"
+    />
     <div class="CardList">
-      <div v-for="tradeInfos in list" :key="tradeInfos" class="Card">
-        <b>Dono das cartas: </b>{{ tradeInfos.user.name }}
-        <div class="CardList">
-          <CardList :cards="tradeInfos.tradeCards" :onlyOffers="true" />
+      <div v-for="tradeInfos in list" :key="tradeInfos">
+        <div v-if="showMyOnly ? filterOnlyMyTrade(tradeInfos) : true" class="Card">
+          <div>
+            <b>Dono das cartas: </b>{{ tradeInfos.user.name }}
+            <ButtonComponent
+              v-if="showMyOnly ? filterOnlyMyTrade(tradeInfos) : false"
+              :on-button-click="
+                () => {
+                  deleteTrade(tradeInfos.id)
+                }
+              "
+              label="Excluir troca"
+            />
+          </div>
+          <div class="CardList">
+            <CardList
+              :cards="tradeInfos.tradeCards"
+              :onlyOffers="true"
+              :only-my-cards="showMyOnly"
+            />
+          </div>
         </div>
       </div>
     </div>
     <div v-if="more" class="ShowMore">
-      <ButtonComponent @onButtonClick="getMoreTrades" label="Ver mais" />
+      <ButtonComponent :on-button-click="getMoreTrades" label="Ver mais" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { GetTrades } from '../services/api/cardService'
+import { deleteTrade } from '../services/api/userService'
 
 import ButtonComponent from '../components/ButtonComponent.vue'
 import HeaderComponent from '../components/HeaderComponent.vue'
@@ -36,19 +62,23 @@ export default {
     list: [],
     rpp: 10,
     page: 1,
-    more: false
+    more: false,
+    showMyOnly: false
   }),
 
   async created() {
-    const response = await GetTrades({
-      rpp: 10,
-      page: 1
-    })
-    this.more = response.more
-    this.list = response.list
+    this.getFirstPageOfTrade()
   },
 
   methods: {
+    async getFirstPageOfTrade() {
+      const response = await GetTrades({
+        rpp: 10,
+        page: 1
+      })
+      this.more = response.more
+      this.list = response.list
+    },
     async getMoreTrades() {
       const response = await GetTrades({
         rpp: 10,
@@ -57,6 +87,18 @@ export default {
       this.page = response.page
       this.more = response.more
       this.list = this.list.concat(response.list)
+    },
+
+    filterOnlyMyTrade(trade) {
+      const userId = localStorage.getItem('userId')
+      if (this.showMyOnly) return trade.userId === userId
+      return true
+    },
+
+    async deleteTrade(id: string) {
+      const response = await deleteTrade(id)
+      if (response.statusCode === 500) return false
+      this.getFirstPageOfTrade()
     }
   }
 }
@@ -70,11 +112,25 @@ export default {
 .body {
   height: auto;
   padding-bottom: 1rem;
+
+  button {
+    margin: 1rem 0;
+  }
 }
 
 .Card {
   width: fit-content;
   margin-left: 0.3rem;
+
+  button {
+    display: none;
+  }
+}
+
+.Card:hover {
+  button {
+    display: block;
+  }
 }
 
 .CardList {

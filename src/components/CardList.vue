@@ -2,7 +2,7 @@
   <div class="ImgList">
     <div v-for="cardInfo in cards" :key="cardInfo">
       <img
-        v-if="onlyOffers ? onlyOffers && cardInfo.type === 'OFFERING' : true"
+        v-if="FilterCard(cardInfo)"
         :src="cardInfo.card?.imageUrl ? cardInfo.card.imageUrl : cardInfo.imageUrl"
         alt="card photo not informed"
       />
@@ -14,7 +14,17 @@
 export default {
   props: {
     cards: [Object],
-    onlyOffers: Boolean
+    onlyOffers: Boolean,
+    onlyMyCards: { type: Boolean, required: false },
+    userId: { type: String, required: false }
+  },
+
+  methods: {
+    FilterCard(card) {
+      let show = true
+      if (this.onlyOffers) show = card.type === 'OFFERING'
+      return show
+    }
   }
 }
 </script>

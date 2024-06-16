@@ -15,11 +15,11 @@
         "
       />
       <div v-if="more" class="ShowMore">
-        <ButtonComponent @onButtonClick="getMoreCards" label="Ver mais" />
+        <ButtonComponent :on-button-click="getMoreCards" label="Ver mais" />
       </div>
     </div>
     <div class="ModalFooter">
-      <ButtonComponent @onButtonClick="addCards" label="Confirmar" />
+      <ButtonComponent :on-button-click="addCards" label="Confirmar" />
     </div>
   </div>
 </template>

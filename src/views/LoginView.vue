@@ -25,7 +25,7 @@
     />
     <div class="CardFooter">
       <ErrorMessage v-if="loginError" errorMessage="Email ou senha estão incorretos" />
-      <ButtonComponent @onButtonClick="handleLogin" label="Login" />
+      <ButtonComponent :on-button-click="handleLogin" label="Login" />
       <router-link to="/Register">Cadastrar novo usuario</router-link>
     </div>
   </div>

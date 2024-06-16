@@ -83,3 +83,12 @@ export async function addTrade({
     return e.response
   }
 }
+
+export async function deleteTrade(id: string) {
+  try {
+    const response = (await api.delete(`/trades/${id}`)).data
+    return response
+  } catch (e: any) {
+    return e.response.data
+  }
+}

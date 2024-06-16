@@ -4,25 +4,25 @@
     <TextField
       label="Nome*"
       placeholder="Nome"
-      :errorMessage="this.requiredFieldMessage"
-      :showError="this.triedCreateUser && this.userInfos.name === ''"
-      :value="this.userInfos.name"
+      :errorMessage="requiredFieldMessage"
+      :showError="triedCreateUser && userInfos.name === ''"
+      :value="userInfos.name"
       :onChange="
         (value) => {
-          this.userInfos.name = value.target.value
+          userInfos.name = value.target.value
         }
       "
     />
     <TextField
       label="Email*"
       placeholder="Email"
-      :value="this.userInfos.email"
+      :value="userInfos.email"
       :errorMessage="'Email não é válido'"
-      :showError="this.triedCreateUser && !this.emailIsValid"
+      :showError="triedCreateUser && !emailIsValid"
       inputType="email"
       :onChange="
         (value) => {
-          this.userInfos.email = value.target.value
+          userInfos.email = value.target.value
         }
       "
     />
@@ -30,18 +30,18 @@
       label="Senha*"
       placeholder="Senha"
       inputType="password"
-      :errorMessage="this.requiredFieldMessage"
-      :showError="this.triedCreateUser && this.userInfos.password === ''"
-      :value="this.userInfos.password"
+      :errorMessage="requiredFieldMessage"
+      :showError="triedCreateUser && userInfos.password === ''"
+      :value="userInfos.password"
       :onChange="
         (value) => {
-          this.userInfos.password = value.target.value
+          userInfos.password = value.target.value
         }
       "
     />
     <div class="CardFooter">
       <ErrorMessage v-if="emailAlreadyExists" errorMessage="Email já cadastrado" />
-      <ButtonComponent @onButtonClick="this.handleRegister" label="Cadastrar" />
+      <ButtonComponent :on-button-click="handleRegister" label="Cadastrar" />
     </div>
   </div>
 </template>
@@ -51,9 +51,9 @@ import ButtonComponent from '../components/ButtonComponent.vue'
 import TextField from '../components/TextField.vue'
 import ErrorMessage from '../components/ErrorMessageComponent.vue'
 
-import { registerNewUser } from '../services/api/userService.ts'
+import { registerNewUser } from '../services/api/userService'
 
-import ValidateEmail from '../utils/ValidateEmail.ts'
+import ValidateEmail from '../utils/ValidateEmail'
 
 export default {
   components: {
@@ -77,8 +77,12 @@ export default {
       this.emailIsValid = ValidateEmail(this.userInfos.email)
       this.triedCreateUser = true
 
-      if (this.emailIsValid && this.userInfos.name.length > 0 && this.userInfos.password > 0) {
-        const response = await registerNewUser(ValidateEmail)
+      if (
+        this.emailIsValid &&
+        this.userInfos.name.length > 0 &&
+        this.userInfos.password.length > 0
+      ) {
+        const response = await registerNewUser(this.userInfos)
         if (response === 'User already exists') this.emailAlreadyExists = true
         return response
       }

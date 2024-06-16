@@ -89,8 +89,10 @@ export default {
 
     async getUserInfos() {
       const response = await auth()
-      if (response.cards) this.cards = response.cards
-      else {
+      if (response.cards) {
+        localStorage.setItem('userId', response.id)
+        this.cards = response.cards
+      } else {
         this.userLogged = false
       }
     }
