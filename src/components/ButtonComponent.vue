@@ -5,11 +5,7 @@
 <script lang="ts">
 export default {
   props: {
-    label: String,
-    onButtonClick: {
-      type: Function,
-      required: true
-    }
+    label: String
   }
 }
 </script>

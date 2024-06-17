@@ -5,7 +5,7 @@
   <div class="body">
     <h1>Cartas que estão sendo ofertadas</h1>
     <ButtonComponent
-      :on-button-click="
+      @on-button-click="
         () => {
           showMyOnly = !showMyOnly
         }
@@ -13,13 +13,13 @@
       label="Mostrar apenas minhas trocas"
     />
     <div class="CardList">
-      <div v-for="tradeInfos in list" :key="tradeInfos">
+      <div v-for="tradeInfos in list" :key="tradeInfos.id">
         <div v-if="showMyOnly ? filterOnlyMyTrade(tradeInfos) : true" class="Card">
           <div>
             <b>Dono das cartas: </b>{{ tradeInfos.user.name }}
             <ButtonComponent
               v-if="showMyOnly ? filterOnlyMyTrade(tradeInfos) : false"
-              :on-button-click="
+              @on-button-click="
                 () => {
                   deleteTrade(tradeInfos.id)
                 }
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div v-if="more" class="ShowMore">
-      <ButtonComponent :on-button-click="getMoreTrades" label="Ver mais" />
+      <ButtonComponent @on-button-click="getMoreTrades" label="Ver mais" />
     </div>
   </div>
 </template>
@@ -59,7 +59,7 @@ export default {
   },
 
   data: () => ({
-    list: [],
+    list: [] as ITradeList[],
     rpp: 10,
     page: 1,
     more: false,
@@ -89,7 +89,7 @@ export default {
       this.list = this.list.concat(response.list)
     },
 
-    filterOnlyMyTrade(trade) {
+    filterOnlyMyTrade(trade: ITradeList) {
       const userId = localStorage.getItem('userId')
       if (this.showMyOnly) return trade.userId === userId
       return true
@@ -107,6 +107,12 @@ export default {
 <style scoped>
 .Header {
   margin-bottom: 50px;
+}
+
+@media screen and (max-width: 780px) {
+  .Header {
+    margin-bottom: 100px;
+  }
 }
 
 .body {

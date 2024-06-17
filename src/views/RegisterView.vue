@@ -41,7 +41,7 @@
     />
     <div class="CardFooter">
       <ErrorMessage v-if="emailAlreadyExists" errorMessage="Email já cadastrado" />
-      <ButtonComponent :on-button-click="handleRegister" label="Cadastrar" />
+      <ButtonComponent @on-button-click="handleRegister" label="Cadastrar" />
     </div>
   </div>
 </template>

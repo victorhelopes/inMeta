@@ -1,49 +1,15 @@
 import api from '../index'
 
-interface ICard {
-  id: string
-  cardId: string
-  tradeId: string
-  type: string
-  card: {
-    id: string
-    name: string
-    description: string
-    imageUrl: string
-    createdAt: Date
-  }
-}
-
-interface ITrade {
-  id: string
-  userId: string
-  createdAt: Date
-  user: {
-    name: string
-  }
-  tradeCards: ICard[]
-}
-
-interface IGetTradesQuery {
-  rpp: number
-  page: number
-}
-
-export interface IGetTradesResponse extends IGetTradesQuery {
-  list: ITrade[]
-  more: boolean
-}
-
-export async function GetTrades(queryParams: IGetTradesQuery) {
+export async function GetTrades(queryParams: IQuery) {
   try {
-    const response: IGetTradesResponse = (await api.get('/trades', { params: queryParams })).data
+    const response: IGetAllTradesResponse = (await api.get('/trades', { params: queryParams })).data
     return response
   } catch (e: any) {
     return e.response
   }
 }
 
-export async function getAllCards(queryParams: IGetTradesQuery) {
+export async function getAllCards(queryParams: IQuery) {
   try {
     const response = (await api.get('/cards', { params: queryParams })).data
     return response

@@ -15,7 +15,7 @@
   </div>
   <ModalAddCard
     v-if="modaAddCardIsOpen"
-    @closeModal="
+    @close-modal="
       () => {
         closeModal()
         getUserInfos()
@@ -25,7 +25,7 @@
   />
   <ModalAddTradeCard
     v-if="modaAddTradeCardIsOpen"
-    @closeModal="
+    @close-modal="
       () => {
         closeModal()
         getUserInfos()
@@ -112,12 +112,14 @@ export default {
   height: fit-content;
   width: 100%;
   box-sizing: border-box;
+  flex-wrap: wrap;
   background-color: var(--orange-color);
 }
 
 .MenuOptions {
   display: flex;
   width: fit-content;
+  flex-wrap: wrap;
 
   hr {
     margin: 1rem 1rem;

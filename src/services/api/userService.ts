@@ -1,20 +1,6 @@
 import api from '../index'
 import { removeToken } from '../helpers/tokenHelper'
 
-interface IUserData {
-  email: string
-  password: string
-}
-
-interface INewUser extends IUserData {
-  name: string
-}
-
-interface ITrade {
-  cardId: String
-  type: 'OFFERING' | 'RECEIVING'
-}
-
 export async function Login(loginData: IUserData) {
   try {
     const response = (await api.post('/login', loginData)).data
@@ -37,7 +23,7 @@ export async function registerNewUser(newUserData: INewUser) {
   }
 }
 
-export async function addCard(cardIds: String[]) {
+export async function addCard(cardIds: string[]) {
   try {
     const response = (await api.post('/me/cards', { cardIds: cardIds })).data
     return response
@@ -59,10 +45,10 @@ export async function addTrade({
   offering,
   receiving
 }: {
-  offering: String[]
-  receiving: String[]
+  offering: string[]
+  receiving: string[]
 }) {
-  const cards: ITrade[] = []
+  const cards: ITradeBodyCard[] = []
   offering.forEach((card) => {
     cards.push({
       cardId: card,

@@ -2,20 +2,17 @@
   font-family: Arial, Helvetica, sans-serif;
 
   --orange-color: #ff7235;
-  --orange-darker-color: #ca511d;
   --green-color: #468847;
   --green-darker-color: #2c552d;
   --cancel-color: #f80000;
   --gray-color: #b6b6b6;
   --gray-background-color: #b6b6b69d;
-  --gray-dark-color: #696969;
 
   .Card {
     background-color: white;
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: 0 0 0.3rem var(--gray-color);
-
     .CardFooter {
       display: flex;
       flex-direction: column;
@@ -28,7 +25,6 @@
       }
     }
   }
-
   .errorMessage {
     color: var(--cancel-color);
     margin-top: 0.5rem;
@@ -57,4 +53,10 @@ body,
   flex-direction: column;
   height: 100%;
   padding: 0 10rem;
+}
+
+@media screen and (max-width: 780px) {
+  .Container {
+    padding: 0 1rem;
+  }
 }

@@ -20,7 +20,7 @@ export default {
   },
 
   methods: {
-    FilterCard(card) {
+    FilterCard(card: ITradeBodyCard) {
       let show = true
       if (this.onlyOffers) show = card.type === 'OFFERING'
       return show

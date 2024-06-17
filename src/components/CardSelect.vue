@@ -20,16 +20,16 @@ export default {
   },
 
   data: () => ({
-    cardsSelecteds: []
+    cardsSelecteds: [] as string[]
   }),
 
   methods: {
-    addCard(cardSelected) {
+    addCard(cardSelected: ICard) {
       this.cardsSelecteds.push(cardSelected.id)
       this.$emit('updateData', this.cardsSelecteds)
     },
 
-    removeCard(cardSelected) {
+    removeCard(cardSelected: ICard) {
       const newCardList = this.cardsSelecteds.filter((card) => {
         return card !== cardSelected.id
       })
@@ -37,7 +37,7 @@ export default {
       this.$emit('updateData', this.cardsSelecteds)
     },
 
-    isCardSelected(cardSelected) {
+    isCardSelected(cardSelected: ICard) {
       const cardOnList = this.cardsSelecteds.find((card) => {
         if (cardSelected.id === card) return 1
       })

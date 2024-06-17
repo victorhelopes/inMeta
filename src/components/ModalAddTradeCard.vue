@@ -25,7 +25,7 @@
         "
       />
       <div v-if="more && step === 2" class="ShowMore">
-        <ButtonComponent :on-button-click="getMoreCards" label="Ver mais" />
+        <ButtonComponent @on-button-click="getMoreCards" label="Ver mais" />
       </div>
     </div>
     <p v-if="showError" class="errorMessage">
@@ -34,7 +34,7 @@
     <div class="ModalFooter">
       <p class="Close" v-if="step === 2" v-on:click="step = 1">Voltar</p>
       <ButtonComponent
-        :on-button-click="
+        @on-button-click="
           () => {
             step === 1 ? (step = 2) : createTrade()
           }
